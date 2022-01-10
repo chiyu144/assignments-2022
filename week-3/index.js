@@ -4,18 +4,31 @@ const pageUnit = 8
 
 document.addEventListener('DOMContentLoaded', async () => {
   const articles = await getArticles(apiUrl)
-  renderArticles(articles)
-
-  const loadMoreBtn = document.getElementById('load-more-btn')
-  loadMoreBtn.addEventListener('click', () => {
-    if (loadMoreBtn.textContent === '沒有景點囉 !') return
-    else {
-      renderArticles(articles, nextPage)
-      articles.length / pageUnit <= nextPage
-        ? loadMoreBtn.textContent = '沒有景點囉 !'
-        : nextPage ++
-    } 
-  })
+  const overlayBox = document.querySelector('.overlay-box')
+  
+  if (articles?.length > 0) {
+    overlayBox.style.display = 'none'
+    renderArticles(articles)
+    const loadMoreBtn = document.querySelector('#load-more-btn')
+    loadMoreBtn.style.display = 'inline-block'
+    loadMoreBtn.addEventListener('click', () => {
+      if (loadMoreBtn.textContent === '沒有景點囉 !') return
+      else {
+        renderArticles(articles, nextPage)
+        articles.length / pageUnit <= nextPage
+        ? (
+          loadMoreBtn.textContent = '沒有景點囉 !',
+          loadMoreBtn.disabled = true 
+        ) : nextPage ++
+      } 
+    })
+  } else {
+    const loadingSpinner = document.querySelector('.loading-spinner')
+    loadingSpinner.style.display = 'none'
+    const notFount = document.createElement('div')
+    notFount.textContent = '查無資料'
+    overlayBox.appendChild(notFount)
+  } 
 });
 
 const getArticles = async (apiUrl) => {
@@ -28,7 +41,7 @@ const getArticles = async (apiUrl) => {
 }
 
 const renderArticles = (articles, nextPage = 1) => {
-  const mainSection = document.getElementById('main-section')
+  const mainSection = document.querySelector('#main-section')
   const fragment = document.createDocumentFragment()
 
   const startIndex = nextPage === 1 ? 0 : (nextPage - 1) * pageUnit
