@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang='zh-Hant'>
+  <head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Welcome to MyHome</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet">
+    <link rel='icon' href='./favicon.svg'>
+    <link rel='stylesheet' href='./style.css'>
+  </head>
+  <body>
+    <nav role='navigation'> 
+      <div class='nav-logo'>
+        <a href='./'>My Website</a>
+      </div>
+      <div class='nav-menu'>
+        <input id='mobile-nav-switch' type='checkbox'>
+        <label class='mobile-nav-icon' for='mobile-nav-switch'>
+          <span></span>
+          <span></span>
+          <span></span>
+        </label>
+        <ul>
+          <li><a href='#'>Item 1</a></li>
+          <li><a href='#'>Item 2</a></li>
+          <li><a href='#'>Item 3</a></li>
+          <li><a href='#'>Item 4</a></li>     
+        </ul>
+      </div>
+    </nav>
+    <header>
+      <div class='header-title'>Welcome to MyHome</div>
+    </header>
+    <main id='main-section'>
+      <!-- 動態生成 -->
+    </main>
+    <button id='load-more-btn'>Load More</button>
+    <footer>
+      <p>&copy; Juri 2021</p>
+    </footer>
+    <script src='./index.js'></script>
+  </body>
+</html>
