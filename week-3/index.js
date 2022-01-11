@@ -26,9 +26,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   } else {
     const loadingSpinner = document.querySelector('.loading-spinner')
     loadingSpinner.style.display = 'none'
-    const notFount = document.createElement('div')
-    notFount.textContent = '查無資料'
-    overlayBox.appendChild(notFount)
+    const notFound = document.createElement('div')
+    notFound.textContent = '查無資料'
+    overlayBox.appendChild(notFound)
   } 
 });
 

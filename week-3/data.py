@@ -16,7 +16,7 @@ def getDistrict (address):
   return address[5:8]
 
 def generateSpotsCsv (spots):
-  with open('data.csv', 'w', newline='', encoding='utf8') as csvData:
+  with open('data.csv', 'w', newline='', encoding='utf-8') as csvData:
     csvFile = csv.writer(csvData)
     for spot in spots:
       # 景點名稱, 區域, 經度, 緯度, 第一張圖檔網址
