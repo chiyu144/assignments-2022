@@ -64,20 +64,25 @@ main {
   margin: 0 auto;
   padding: calc(var(--space-unit)*5) 0;
 }
-main > form {
+main > section {
+  width: 320px;
+  margin: 0 auto;
+}
+main > section > form {
   display: flex;
   flex-direction: column;
   gap: calc(var(--space-unit)*2);
-  width: 320px;
-  margin: 0 auto;
   align-items: center;
 }
-main > form input {
+main > section > form input {
   width: 80%;
   margin-left: calc(var(--space-unit)*1);
 }
-main > form > button {
+main > section > form > button {
   cursor: pointer;
+}
+.msg {
+  text-align: center;
 }
 footer {
   display: flex;
