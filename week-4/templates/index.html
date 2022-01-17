@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block body %}
+  <form id="sign-in-form">
+    <h3>登入系統</h3>
+    <div>
+      <label for="username">帳號</label>
+      <input type="text" id="username" name="username">
+    </div>
+    <div>
+      <label for="password">密碼</label>
+      <input type="password" id="password" name="password">
+    </div>
+    <button type="submit">登入</button>
+  </form>
+{% endblock %}
