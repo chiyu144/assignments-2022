@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, session, redirect, url_for
+import os
 
 app = Flask(__name__)
+app.secret_key = os.urandom(12).hex()
 
 @app.route('/')
 def index ():
@@ -8,7 +10,9 @@ def index ():
 
 @app.route('/member/')
 def member ():
-  return render_template('member.html', header_title = '歡迎光臨，這是會員頁')
+  if 'user_id' in session: 
+    return render_template('member.html', header_title = '歡迎光臨，這是會員頁')
+  return redirect(url_for('index'))
 
 @app.route('/error/')
 def error ():
@@ -16,12 +20,14 @@ def error ():
 
 @app.route('/signin', methods=['POST'])
 def signIn ():
-  if request.method =='POST':
-    userId = request.get_json()['userId']
+  if request.method == 'POST':
+    user_id = request.get_json()['userId']
     password = request.get_json()['password']
     message = None
-    if userId and password:
-      if userId == 'test' and password == 'test':
+    if user_id and password:
+      if user_id == 'test' and password == 'test':
+        session.permanent = True
+        session['user_id'] = user_id 
         return redirect(url_for('member'))
       else:
         message = '帳號、或密碼輸入錯誤'
@@ -32,6 +38,8 @@ def signIn ():
 
 @app.route('/signout')
 def signOut ():
+  session.pop('user_id', None)
+  session.clear()
   return redirect(url_for('index'))
 
 if __name__ =='__main__':

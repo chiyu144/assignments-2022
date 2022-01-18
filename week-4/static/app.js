@@ -1,13 +1,11 @@
-const headers = {
-  'Accept': 'application/json',
-  'Content-Type': 'application/json'
-}
-
 const postSignIn = async ({ userId, password }) => {
   try {
     const res = await fetch(`/signin`, {
       method: 'POST',
-      headers,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({userId, password})
     });
     return res;
@@ -18,10 +16,7 @@ const postSignIn = async ({ userId, password }) => {
 
 const getSignOut = async () => {
   try {
-    const res = await fetch(`/signout`, {
-      method: 'GET',
-      headers
-    });
+    const res = await fetch(`/signout`);
     return res;
   } catch (err) {
     console.warn(err);
@@ -50,8 +45,6 @@ const signOut = async (e) => {
 };
 
 document.addEventListener('DOMContentLoaded', async () => {
-  console.log('YOOOOOOOO');
-  
   // * index
   const signInForm = document.querySelector('#sign-in-form');
   signInForm?.addEventListener('submit', signIn);
