@@ -21,7 +21,10 @@ def member ():
 def error ():
   if 'user_id' in session:
     return redirect(url_for('member'))
-  return render_template('error.html', header_title = '登入失敗')
+  elif request.args.get('message') and request.args.get('message') == '帳號或密碼錯誤' or request.args.get('message') == '帳號或密碼不得為空':
+    return render_template('error.html', header_title = '登入失敗')
+  else:
+    return redirect(url_for('index'))
 
 @app.route('/signin', methods=['POST'])
 def signIn ():
