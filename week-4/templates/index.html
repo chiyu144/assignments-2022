@@ -1,15 +1,19 @@
 {% extends "layout.html" %}
 {% block body %}
-  <form id="sign-in-form">
-    <h3>登入系統</h3>
-    <div>
-      <label for="userId">帳號</label>
-      <input type="text" id="userId" name="userId">
-    </div>
-    <div>
-      <label for="password">密碼</label>
-      <input type="password" id="password" name="password">
-    </div>
-    <button type="submit">登入</button>
-  </form>
+  {% if session['user_id'] %}
+    <p class="msg">您已經登入中囉～！</p>
+  {% else %}
+    <form id="sign-in-form">
+      <h3>請輸入帳號密碼</h3>
+      <div>
+        <label for="userId">帳號</label>
+        <input type="text" id="userId" name="userId">
+      </div>
+      <div>
+        <label for="password">密碼</label>
+        <input type="password" id="password" name="password">
+      </div>
+      <button type="submit">登入</button>
+    </form>
+  {% endif %}
 {% endblock %}
