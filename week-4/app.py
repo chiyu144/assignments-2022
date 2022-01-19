@@ -6,10 +6,6 @@ app.secret_key = os.urandom(12).hex()
 
 @app.route('/')
 def index ():
-  if 'user_id' in session:
-    if session.get('user_id') == '':
-      session.pop('user_id', None)
-      session.clear()
   response = make_response(render_template('index.html', header_title = '歡迎使用系統'))
   response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
   response.headers['Pragma'] = 'no-cache'
@@ -18,8 +14,7 @@ def index ():
 @app.route('/member/')
 def member ():
   if 'user_id' in session:
-    if session.get('user_id') != '':
-      return render_template('member.html', header_title = f"您好 {session.get('user_id')} 君，這是會員頁")
+    return render_template('member.html', header_title = f"您好 {session.get('user_id')} 君，這是會員頁")
   return redirect(url_for('index'))
 
 @app.route('/error/')
@@ -32,12 +27,11 @@ def signIn ():
     user_id = request.get_json()['userId']
     password = request.get_json()['password']
     message = None
-    # 預設 31 天後自動失效
-    session.permanent = True
-    # 準備紀錄 user_id
-    session['user_id'] = ''
     if user_id and password:
       if user_id == 'test' and password == 'test':
+        # 預設 31 天後自動失效
+        session.permanent = True
+        # 紀錄 user_id
         session['user_id'] = user_id
         return redirect(url_for('member'))
       else:
