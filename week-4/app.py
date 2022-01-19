@@ -6,6 +6,10 @@ app.secret_key = os.urandom(12).hex()
 
 @app.route('/')
 def index ():
+  if 'user_id' in session:
+    if session.get('user_id') == '':
+      session.pop('user_id', None)
+      session.clear()
   response = make_response(render_template('index.html', header_title = '歡迎使用系統'))
   response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
   response.headers['Pragma'] = 'no-cache'
@@ -13,15 +17,16 @@ def index ():
 
 @app.route('/member/')
 def member ():
-  if 'user_id' in session: 
-    return render_template('member.html', header_title = f"您好 {session.get('user_id')} 君，這是會員頁")
+  if 'user_id' in session:
+    if session.get('user_id') != '':
+      return render_template('member.html', header_title = f"您好 {session.get('user_id')} 君，這是會員頁")
   return redirect(url_for('index'))
 
 @app.route('/error/')
 def error ():
   if 'user_id' in session:
-    return redirect(url_for('member'))
-  elif request.args.get('message') and request.args.get('message') == '帳號或密碼錯誤' or request.args.get('message') == '帳號或密碼不得為空':
+    if session.get('user_id') != '':
+      return redirect(url_for('member'))
     return render_template('error.html', header_title = '登入失敗')
   else:
     return redirect(url_for('index'))
@@ -32,12 +37,13 @@ def signIn ():
     user_id = request.get_json()['userId']
     password = request.get_json()['password']
     message = None
+    # 預設 31 天後自動失效
+    session.permanent = True
+    # 準備紀錄 user_id
+    session['user_id'] = ''
     if user_id and password:
       if user_id == 'test' and password == 'test':
-        # 預設 31 天後自動失效
-        session.permanent = True
-        # user_id 記錄起來
-        session['user_id'] = user_id 
+        session['user_id'] = user_id
         return redirect(url_for('member'))
       else:
         message = '帳號或密碼錯誤'
