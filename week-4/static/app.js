@@ -49,14 +49,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   const signInForm = document.querySelector('#sign-in-form');
   signInForm?.addEventListener('submit', signIn);
 
-  // * error
-  const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.has('message')) {
-    const message = urlParams.get('message')
-    const msg = document.querySelector('.msg');
-    msg.textContent = message;
-  }
-
   // * member
   const signOutForm = document.querySelector('#sign-out-form');
   signOutForm?.addEventListener('submit', signOut);

@@ -24,12 +24,7 @@ def member ():
 
 @app.route('/error/')
 def error ():
-  if 'user_id' in session:
-    if session.get('user_id') != '':
-      return redirect(url_for('member'))
-    return render_template('error.html', header_title = '登入失敗')
-  else:
-    return redirect(url_for('index'))
+  return render_template('error.html', header_title = '登入失敗', message = request.args.get('message'))
 
 @app.route('/signin', methods=['POST'])
 def signIn ():
