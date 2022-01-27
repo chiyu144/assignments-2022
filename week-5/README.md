@@ -59,7 +59,7 @@ select * from member;
 select * from member order by time desc;
 ```
 ![select-all-member-desc](https://images.plurk.com/49dduNu3DpFimv14GEDJ0Q.jpg)
-#### 取得排序後第 2 ~ 4 共 3 筆資料並按 time 欄位，近到遠排序
+#### 取得按 time 欄位，近到遠排序後第 2 ~ 4 共 3 筆資料
 ```sql
 select * from member order by time desc limit 1, 3;
 ```
