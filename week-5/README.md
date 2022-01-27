@@ -152,3 +152,4 @@ select message.*, member.name from message inner join member on member.id = mess
 - 解法：power shell 還不支援 '<'，只好改用命令提示字元
 > 問題：ERROR: ASCII '\0' ... Set --binary-mode to 1 if ASCII '\0' is expected.
 - 解法1：匯入的指令加 `--binary-mode -o`
+- 解法2：壓縮 sql 檔然後解壓縮（沒試過，但看到很多人用這個方法，想記起來以備不時之需）
