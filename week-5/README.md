@@ -144,7 +144,7 @@ select message.*, member.name from message inner join member on member.id = mess
 #### 輸出 data.sql 檔
 > 問題：命令提示字元跟 power shell 都不認得 mysql、mysqldump
 - 解法1：設定電腦的系統環境變數
-- 解法2：power shell cd 移到 mysql exe 檔的所在路徑，在那個路徑下執行指令
+- 解法2：cd 移到 mysql exe 檔的所在路徑，在那個路徑下執行指令
 > 問題：comment 因為打中文，輸出變亂碼
 - 解法：輸出的指令加 `--default-character-set=utf8mb4`
 #### 匯入 data.sql 檔（想確認輸出的檔案有沒有問題，所以試了）
