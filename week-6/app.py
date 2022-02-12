@@ -59,7 +59,9 @@ def index():
 @app.route('/member/', methods=['GET'])
 def member():
   if 'user_id' in session:
-    return render_template('member.html', header_title = f"{session.get('user_id')}您好，這是會員頁")
+    g.cursor.execute('SELECT * FROM member WHERE username = %s', (session.get('user_id'), ))
+    user = g.cursor.fetchone()
+    return render_template('member.html', header_title = f"{user[1]}您好，這是會員頁")
   return redirect(url_for('index'))
 
 @app.route('/error/')
