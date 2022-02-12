@@ -15,9 +15,9 @@ def checkUser(user_id, password):
 
 # Sign Up: 檢查帳號是否重複
 def validateId(user_id):
-  g.cursor.execute('SELECT username FROM member WHERE username = %s', (user_id, ))
-  username = g.cursor.fetchall()
-  if len(username) > 0:
+  g.cursor.execute('SELECT count(username) FROM member WHERE username = %s', (user_id, ))
+  username = g.cursor.fetchone()
+  if username[0] > 0:
     return True
 
 # Sign Up: 新增使用者
