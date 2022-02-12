@@ -8,7 +8,7 @@ app.secret_key = os.urandom(12).hex()
 
 # Sign In: 檢查有無使用者 & 帳密對不對
 def checkUser(user_id, password):
-  g.cursor.execute('SELECT * FROM member WHERE username = %s', (user_id, ))
+  g.cursor.execute('SELECT username FROM member WHERE username = %s', (user_id, ))
   user = g.cursor.fetchone()
   if user and password == user[3]:
     return True
@@ -58,7 +58,7 @@ def index():
 @app.route('/member/', methods=['GET'])
 def member():
   if 'user_id' in session:
-    g.cursor.execute('SELECT * FROM member WHERE username = %s', (session.get('user_id'), ))
+    g.cursor.execute('SELECT username FROM member WHERE username = %s', (session.get('user_id'), ))
     user = g.cursor.fetchone()
     return render_template('member.html', header_title = f"{user[1]}您好，這是會員頁")
   return redirect(url_for('index'))
