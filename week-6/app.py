@@ -15,11 +15,10 @@ def checkUser(user_id, password):
 
 # Sign Up: 檢查帳號是否重複
 def validateId(user_id):
-  g.cursor.execute('SELECT username FROM member')
-  usernames = g.cursor.fetchall()
-  for username in usernames:
-    if user_id == username[0]:
-      return True
+  g.cursor.execute('SELECT username FROM member WHERE username = %s', (user_id, ))
+  username = g.cursor.fetchall()
+  if len(username) > 0:
+    return True
 
 # Sign Up: 新增使用者
 def addUser(user_name, user_id, password):
