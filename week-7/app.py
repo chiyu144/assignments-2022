@@ -13,6 +13,7 @@ from api.members import blueprint_members
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
+app.config['ENV'] = 'development'
 app.secret_key = os.urandom(12).hex()
 
 app.register_blueprint(blueprint_index)

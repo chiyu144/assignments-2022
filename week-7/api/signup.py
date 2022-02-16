@@ -26,10 +26,10 @@ def signUp():
     if user_name and user_id and password:
       if validateId(user_id):
         message = '帳號已經被註冊'
-        return redirect(url_for('error', header_title = '註冊失敗', message = message))
+        return redirect(url_for('error.error', header_title = '註冊失敗', message = message))
       else:
         addUser(user_name, user_id, password)
-        return redirect(url_for('index'))
+        return redirect(url_for('index.index'))
     else:
       message = '姓名、帳號、密碼皆不得為空'
-      return redirect(url_for('error', header_title = '註冊失敗', message = message))
+      return redirect(url_for('error.error', header_title = '註冊失敗', message = message))

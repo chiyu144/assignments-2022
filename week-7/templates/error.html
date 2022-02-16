@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
-  <form action="{{ url_for('index') }}" id="error-form">
+  <form action="{{ url_for('index.index') }}" id="error-form">
     <p class="msg">{{ message }}</p>
     <button type="submit">返回首頁</button>
   </form>

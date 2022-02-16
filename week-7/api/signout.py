@@ -6,4 +6,4 @@ blueprint_signout = Blueprint('signout', __name__)
 def signOut():
   session.pop('user_id', None)
   session.clear()
-  return redirect(url_for('index'))
+  return redirect(url_for('index.index'))

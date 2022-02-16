@@ -1,7 +1,7 @@
 // * 發 API 用
 const postSignUp = async({ userName, userId, password }) => {
   try {
-    const res = await fetch(`/signup`, {
+    const res = await fetch(`/api/signup`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -16,7 +16,7 @@ const postSignUp = async({ userName, userId, password }) => {
 };
 const postSignIn = async ({ userId, password }) => {
   try {
-    const res = await fetch(`/signin`, {
+    const res = await fetch(`/api/signin`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
