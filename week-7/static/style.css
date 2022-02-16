@@ -84,8 +84,11 @@ main > section > form > button {
 .msg {
   text-align: center;
 }
-#index-hr {
+.form-hr {
   margin: 40px auto;
+}
+#search-user-id {
+  margin: 0;
 }
 footer {
   display: flex;

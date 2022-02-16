@@ -4,4 +4,18 @@
     <p class="msg">恭喜您，成功登入系統</p>
     <button type="submit">登出</button>
   </form>
+  <hr class="form-hr" />
+  <form id="search-members-form">
+    <h3>用帳號查詢會員姓名</h3>
+    <input type="text" id="search-user-id" name="search-user-id">
+    <button type="submit">查詢</button>
+    <p id="search-members-result" class="msg"></p>
+  </form>
+  <hr class="form-hr" />
+  <form id="update-member-form">
+    <h3>更新我的姓名</h3>
+    <input type="text" id="update-name" name="update-name">
+    <button type="submit">更新</button>
+    <p id="update-name-result" class="msg"></p>
+  </form>
 {% endblock %}
