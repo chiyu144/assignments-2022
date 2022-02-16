@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block body %}
+  {% if session['user_id'] %}
+    <p class="msg">您已經登入中囉～！</p>
+  {% else %}
+    <form id="sign-up-form">
+      <h3>註冊帳號</h3>
+      <div>
+        <label for="new-user-name">姓名</label>
+        <input type="text" id="new-user-name" name="new-user-name">
+      </div>
+      <div>
+        <label for="new-user-id">帳號</label>
+        <input type="text" id="new-user-id" name="new-user-id">
+      </div>
+      <div>
+        <label for="new-user-password">密碼</label>
+        <input type="new-user-password" id="new-user-password" name="new-user-password">
+      </div>
+      <button type="submit">註冊</button>
+    </form>
+    <hr id='index-hr' />
+    <form id="sign-in-form">
+      <h3>登入系統</h3>
+      <div>
+        <label for="user-id">帳號</label>
+        <input type="text" id="user-id" name="user-id">
+      </div>
+      <div>
+        <label for="user-password">密碼</label>
+        <input type="user-password" id="user-password" name="user-password">
+      </div>
+      <button type="submit">登入</button>
+    </form>
+  {% endif %}
+{% endblock %}

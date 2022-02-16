@@ -1,0 +1,7 @@
+{% extends "layout.html" %}
+{% block body %}
+  <form action="{{ url_for('signOut') }}" id="sign-out-form">
+    <p class="msg">恭喜您，成功登入系統</p>
+    <button type="submit">登出</button>
+  </form>
+{% endblock %}
