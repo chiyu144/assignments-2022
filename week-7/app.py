@@ -1,37 +1,48 @@
 import os
 import mysql.connector
 from mysql.connector import Error
+import configparser
 from flask import Flask, g
 
 from view.index import blueprint_index
 from view.member import blueprint_member
 from view.error import blueprint_error
-from api.signup import blueprint_signup
-from api.signin import blueprint_signin
-from api.signout import blueprint_signout
-from api.members import blueprint_members
+from model.signup import blueprint_signup
+from model.signin import blueprint_signin
+from model.signout import blueprint_signout
+from api.member import blueprint_member_api
+from api.members import blueprint_members_api
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 
 app = Flask(__name__)
-app.config['JSON_AS_ASCII'] = False
-app.config['ENV'] = 'development'
+
+app.config['ENV'] = config['App']['env']
+app.config['JSON_AS_ASCII'] = config['App'].getboolean('json_as_ascii')
+
 app.secret_key = os.urandom(12).hex()
 
 app.register_blueprint(blueprint_index)
 app.register_blueprint(blueprint_member)
 app.register_blueprint(blueprint_error)
 
-app.register_blueprint(blueprint_signup, url_prefix = '/api')
-app.register_blueprint(blueprint_signin, url_prefix = '/api')
-app.register_blueprint(blueprint_signout, url_prefix = '/api')
-app.register_blueprint(blueprint_members, url_prefix = '/api')
+app.register_blueprint(blueprint_signup)
+app.register_blueprint(blueprint_signin)
+app.register_blueprint(blueprint_signout)
+
+app.register_blueprint(blueprint_member_api, url_prefix = '/api')
+app.register_blueprint(blueprint_members_api, url_prefix = '/api')
 
 @app.before_request
 def connection():
   try:
     db = mysql.connector.connect(
-        host = 'localhost', port = '3306',
-        user = 'root', password = 'qwert123',
-        database = 'website'
+        host = config['Mysql']['host'],
+        port = int(config['Mysql']['port']),
+        user = config['Mysql']['user'],
+        password = config['Mysql']['password'],
+        database = config['Mysql']['database']
       )
     if db.is_connected():
       g.db = db

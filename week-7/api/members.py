@@ -1,9 +1,9 @@
 from flask import Blueprint, request, jsonify, g
 
-blueprint_members = Blueprint('members', __name__)
+blueprint_members_api = Blueprint('members_api', __name__)
 
-@blueprint_members.route('/members', methods=['GET'])
-def members():
+@blueprint_members_api.route('/members', methods=['GET'])
+def membersApi():
   user_data = None
   if request.method == 'GET':
     user_id = request.args.get('username')
