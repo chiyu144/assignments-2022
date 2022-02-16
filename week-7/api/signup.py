@@ -1,6 +1,6 @@
 from flask import Blueprint, redirect, url_for, request, g
 
-signup = Blueprint('signup', __name__)
+blueprint_signup = Blueprint('signup', __name__)
 
 # 檢查帳號是否重複
 def validateId(user_id):
@@ -16,7 +16,7 @@ def addUser(user_name, user_id, password):
   g.cursor.execute(sql, val)
   g.db.commit()
 
-@signup.route('/signup', methods=['POST'])
+@blueprint_signup.route('/signup', methods=['POST'])
 def signUp():
   if request.method == 'POST':
     user_name = request.get_json()['userName']

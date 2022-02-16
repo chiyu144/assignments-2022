@@ -1,6 +1,6 @@
 from flask import Blueprint, redirect, url_for, request, session, g
 
-signin = Blueprint('signin', __name__)
+blueprint_signin = Blueprint('signin', __name__)
 
 # 檢查有無使用者 & 帳密對不對
 def checkUser(user_id, password):
@@ -9,7 +9,7 @@ def checkUser(user_id, password):
   if user and password == user[3]:
     return True
 
-@signin.route('/signin', methods=['POST'])
+@blueprint_signin.route('/signin', methods=['POST'])
 def signIn():
   if request.method == 'POST':
     user_id = request.get_json()['userId']

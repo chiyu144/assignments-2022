@@ -3,23 +3,26 @@ import mysql.connector
 from mysql.connector import Error
 from flask import Flask, g
 
-from view.index import index
-from view.member import member
-from view.error import error
-from api.signup import signup
-from api.signin import signin
-from api.signout import signout
-from api.members import members
+from view.index import blueprint_index
+from view.member import blueprint_member
+from view.error import blueprint_error
+from api.signup import blueprint_signup
+from api.signin import blueprint_signin
+from api.signout import blueprint_signout
+from api.members import blueprint_members
 
 app = Flask(__name__)
+app.config['JSON_AS_ASCII'] = False
 app.secret_key = os.urandom(12).hex()
-app.register_blueprint(index)
-app.register_blueprint(member)
-app.register_blueprint(error)
-app.register_blueprint(signup)
-app.register_blueprint(signin)
-app.register_blueprint(signout)
-app.register_blueprint(members)
+
+app.register_blueprint(blueprint_index)
+app.register_blueprint(blueprint_member)
+app.register_blueprint(blueprint_error)
+
+app.register_blueprint(blueprint_signup, url_prefix = '/api')
+app.register_blueprint(blueprint_signin, url_prefix = '/api')
+app.register_blueprint(blueprint_signout, url_prefix = '/api')
+app.register_blueprint(blueprint_members, url_prefix = '/api')
 
 @app.before_request
 def connection():
@@ -43,4 +46,4 @@ def closeDb(exc):
     g.db.close()
 
 if __name__ =='__main__':
-  app.run(port = 3000)
+  app.run(port = 3000, debug = True)

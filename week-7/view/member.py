@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, redirect, url_for, session, g
 
-member = Blueprint('member', __name__)
+blueprint_member = Blueprint('member', __name__)
 
-@member.route('/member/', methods=['GET'])
+@blueprint_member.route('/member/', methods=['GET'])
 def member():
   if 'user_id' in session:
     g.cursor.execute('SELECT username FROM member WHERE username = %s', (session.get('user_id'), ))

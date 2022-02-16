@@ -1,7 +1,7 @@
 from flask import Blueprint
 
-members = Blueprint('members', __name__)
+blueprint_members = Blueprint('members', __name__)
 
-@members.route('/members')
+@blueprint_members.route('/members')
 def members():
   return 'YOOOOOOOOOOO members'
