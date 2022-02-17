@@ -1,29 +1,49 @@
-from flask import Blueprint, redirect, url_for, request, current_app
-from operator import itemgetter
+from flask import Blueprint, redirect, url_for, request
+from decorators import with_cnx
 
 blueprint_signup = Blueprint('signup', __name__)
 
 # 檢查帳號是否重複
-def validateId(user_id):
-  cnx = current_app.db_cnx()
-  cursor = cnx.cursor()
+@with_cnx(need_commit = False)
+def validateId(cursor, user_id):
   cursor.execute('SELECT count(username) FROM member WHERE username = %s', (user_id, ))
   username = cursor.fetchone()
-  cursor.close()
-  cnx.close()
   if username[0] > 0:
     return True
 
+# def validateId(user_id):
+#   cnx = current_app.db_cnx()
+#   cursor = cnx.cursor()
+#   cursor.execute('SELECT count(username) FROM member WHERE username = %s', (user_id, ))
+#   username = cursor.fetchone()
+#   cursor.close()
+#   cnx.close()
+#   if username[0] > 0:
+#     return True
+
+# @current_app.with_cnx(need_commit = False)
+# def validateId(cursor, user_id):
+#   cursor.execute('SELECT count(username) FROM member WHERE username = %s', (user_id, ))
+#   username = cursor.fetchone()
+#   if username[0] > 0:
+#     return True
+
 # 新增使用者
-def addUser(user_name, user_id, password):
-  cnx = current_app.db_cnx()
-  cursor = cnx.cursor()
+@with_cnx(need_commit = True)
+def addUser(cursor, user_name, user_id, password):
   sql = 'INSERT INTO member (name, username, password) VALUES (%s, %s, %s)'
   val = (user_name, user_id, password)
   cursor.execute(sql, val)
-  cnx.commit()
-  cursor.close()
-  cnx.close()
+
+# def addUser(user_name, user_id, password):
+#   cnx = current_app.db_cnx()
+#   cursor = cnx.cursor()
+#   sql = 'INSERT INTO member (name, username, password) VALUES (%s, %s, %s)'
+#   val = (user_name, user_id, password)
+#   cursor.execute(sql, val)
+#   cnx.commit()
+#   cursor.close()
+#   cnx.close()
 
 @blueprint_signup.route('/signup', methods=['POST'])
 def signUp():

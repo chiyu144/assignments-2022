@@ -1,7 +1,6 @@
 import os
 from mysql.connector import Error, pooling
 import configparser
-# from functools import wraps
 from flask import Flask, current_app
 
 from view.index import blueprint_index
@@ -35,27 +34,10 @@ def db_cnx():
   except Error as e:
     print('MySql Connection Pool error: ', e)
 
-# def sql_execution(need_commit = None):
-#   def decorator(func):
-#     @wraps(func)
-#     def decorated_func(*args, **kwargs):
-#       try:
-#         func(*args, **kwargs)
-#         if need_commit:
-#           cnx.commit()
-#       except Error as e:
-#         print('MySql Connection Pool error: ', e)
-#       finally:
-#         cursor.commit()
-#         cnx.close()
-#     return decorated_func
-#   return decorator
-
 app = Flask(__name__)
 with app.app_context():
   current_app.db_pool = create_db_pool()
   current_app.db_cnx = db_cnx
-  # current_app.sql_execution = sql_execution
 
 app.config['ENV'] = config['App']['env']
 app.config['JSON_AS_ASCII'] = config['App'].getboolean('json_as_ascii')
@@ -72,13 +54,6 @@ app.register_blueprint(blueprint_signout)
 
 app.register_blueprint(blueprint_member_api, url_prefix = '/api')
 app.register_blueprint(blueprint_members_api, url_prefix = '/api')
-
-# @app.teardown_request
-# def closeDb(exc):
-#   if hasattr(g, 'cursor'):
-#     g.cursor.close()
-#   if hasattr(g, 'db'):
-#     g.db.close()
 
 if __name__ =='__main__':
   app.run(port = 3000, debug = True)

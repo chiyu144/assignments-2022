@@ -110,7 +110,6 @@ const searchMembers = async(e) => {
 
   const p = document.querySelector('#search-members-result')
   p.textContent = !data ? '查無此人' : `${data.name}`
-  console.log('data: ', data);
 };
 // * 監聽
 document.addEventListener('DOMContentLoaded', async () => {
