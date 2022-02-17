@@ -14,10 +14,6 @@ def membersApi():
   result = None
   if request.method == 'GET':
     user_id = request.args.get('username')
-    # cnx = current_app.db_cnx()
-    # cursor = cnx.cursor()
-    # cursor.execute('SELECT id, name, username FROM member WHERE username = %s', (user_id, ))
-    # user = cursor.fetchone()
     member_data = queryMemberData(user_id)
     if member_data:
       result = {
@@ -25,6 +21,4 @@ def membersApi():
         'name': member_data[1],
         'username': member_data[2],
       }
-    # cursor.close()
-    # cnx.close()
   return jsonify({'data': result})

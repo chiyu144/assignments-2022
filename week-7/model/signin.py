@@ -11,16 +11,6 @@ def checkUser(cursor, user_id, password):
   if user and password == user[1]:
     return True
 
-# def checkUser(user_id, password):
-#   cnx = current_app.db_cnx()
-#   cursor = cnx.cursor()
-#   cursor.execute('SELECT username, password FROM member WHERE username = %s', (user_id, ))
-#   user = cursor.fetchone()
-#   cursor.close()
-#   cnx.close()
-#   if user and password == user[1]:
-#     return True
-
 @blueprint_signin.route('/signin', methods=['POST'])
 def signIn():
   if request.method == 'POST':
