@@ -9,10 +9,9 @@ def updateMemberData(cursor, user_name, user_id):
 
 @blueprint_member_api.route('/member', methods=['POST'])
 def memberApi():
-  if request.method == 'POST':
-    user_name = request.get_json()['userName']
-    if 'user_id' in session and user_name:
-      updateMemberData(user_name, session.get('user_id'))
-      return jsonify({ 'ok': True })
-    else:
-      return jsonify({ 'error': True })
+  user_name = request.get_json()['userName']
+  if 'user_id' in session and user_name:
+    updateMemberData(user_name, session.get('user_id'))
+    return jsonify({ 'ok': True })
+  else:
+    return jsonify({ 'error': True })

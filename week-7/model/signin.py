@@ -13,18 +13,17 @@ def checkUser(cursor, user_id, password):
 
 @blueprint_signin.route('/signin', methods=['POST'])
 def signIn():
-  if request.method == 'POST':
-    user_id = request.get_json()['userId']
-    password = request.get_json()['password']
-    message = None
-    if user_id and password:
-      if checkUser(user_id, password):
-        session.permanent = True
-        session['user_id'] = user_id
-        return redirect(url_for('member.member'))
-      else:
-        message = '帳號或密碼錯誤'
-        return redirect(url_for('error.error', message = message))
+  user_id = request.get_json()['userId']
+  password = request.get_json()['password']
+  message = None
+  if user_id and password:
+    if checkUser(user_id, password):
+      session.permanent = True
+      session['user_id'] = user_id
+      return redirect(url_for('member.member'))
     else:
-      message = '帳號或密碼不得為空'
+      message = '帳號或密碼錯誤'
       return redirect(url_for('error.error', message = message))
+  else:
+    message = '帳號或密碼不得為空'
+    return redirect(url_for('error.error', message = message))

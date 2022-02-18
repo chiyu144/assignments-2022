@@ -12,13 +12,12 @@ def queryMemberData(cursor, user_id):
 @blueprint_members_api.route('/members', methods=['GET'])
 def membersApi():
   result = None
-  if request.method == 'GET':
-    user_id = request.args.get('username')
-    member_data = queryMemberData(user_id)
-    if member_data:
-      result = {
-        'id': member_data[0],
-        'name': member_data[1],
-        'username': member_data[2],
-      }
+  user_id = request.args.get('username')
+  member_data = queryMemberData(user_id)
+  if member_data:
+    result = {
+      'id': member_data[0],
+      'name': member_data[1],
+      'username': member_data[2],
+    }
   return jsonify({'data': result})

@@ -9,9 +9,8 @@ def queryMemberName(cursor, user_id):
   user_name = cursor.fetchone()
   return user_name[0]
 
-@blueprint_member.route('/member/', methods=['GET', 'POST'])
+@blueprint_member.route('/member/', methods=['GET'])
 def member():
-  if request.method == 'GET':
-    if 'user_id' in session:
-      return render_template('member.html', header_title = f"{queryMemberName(session.get('user_id'))}您好，這是會員頁")
-    return redirect(url_for('index.index'))
+  if 'user_id' in session:
+    return render_template('member.html', header_title = f"{queryMemberName(session.get('user_id'))}您好，這是會員頁")
+  return redirect(url_for('index.index'))

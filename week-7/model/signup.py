@@ -20,18 +20,17 @@ def addUser(cursor, user_name, user_id, password):
 
 @blueprint_signup.route('/signup', methods=['POST'])
 def signUp():
-  if request.method == 'POST':
-    user_name = request.get_json()['userName']
-    user_id = request.get_json()['userId']
-    password = request.get_json()['password']
-    message = None
-    if user_name and user_id and password:
-      if validateId(user_id):
-        message = '帳號已經被註冊'
-        return redirect(url_for('error.error', header_title = '註冊失敗', message = message))
-      else:
-        addUser(user_name, user_id, password)
-        return redirect(url_for('index.index'))
-    else:
-      message = '姓名、帳號、密碼皆不得為空'
+  user_name = request.get_json()['userName']
+  user_id = request.get_json()['userId']
+  password = request.get_json()['password']
+  message = None
+  if user_name and user_id and password:
+    if validateId(user_id):
+      message = '帳號已經被註冊'
       return redirect(url_for('error.error', header_title = '註冊失敗', message = message))
+    else:
+      addUser(user_name, user_id, password)
+      return redirect(url_for('index.index'))
+  else:
+    message = '姓名、帳號、密碼皆不得為空'
+    return redirect(url_for('error.error', header_title = '註冊失敗', message = message))
