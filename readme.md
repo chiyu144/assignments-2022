@@ -4,7 +4,8 @@
 
 #### Front-end Tech Stack
 - Vanilla JavaScript
-- HTML 5 + CSS 3
+- HTML 5
+- CSS 3
 
 #### Backend Tech Stack
 - Python 3
